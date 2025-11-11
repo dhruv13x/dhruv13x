@@ -1,0 +1,12 @@
+[project]
+name = "dhruv13x"
+version = "0.0.1"
+description = "Core meta-package for the dhruv13x supertool"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+    { name="Dhruv", email="example@example.com" }
+]
+
+[project.urls]
+Homepage = "https://github.com/dhruv13x/dhruv13x"
