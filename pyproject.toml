@@ -1,0 +1,21 @@
+[project]
+name = "dhruv13x"
+version = "0.0.1"
+description = "Enterprise Automation Suite meta-package for tooling aggregation."
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [
+    { name = "Dhruv", email = "" }
+]
+
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/dhruv13x/dhruv13x"
+
+[project.scripts]
+dhruv13x = "dhruv13x.cli:main"
+
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
