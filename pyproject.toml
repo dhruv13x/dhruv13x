@@ -45,8 +45,7 @@ Source   = "https://github.com/dhruv13x/dhruv13x"
 Issues   = "https://github.com/dhruv13x/dhruv13x/issues"
 
 [project.scripts]
-# This exposes your main CLI if you ever add one
-dhruv13x = "dhruv13x.cli:app"
+dhruv13x = "dhruv13x.cli:run"
 
 [project.optional-dependencies]
 dev = [
