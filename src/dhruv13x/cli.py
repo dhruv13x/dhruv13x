@@ -38,6 +38,21 @@ BANNER = r"""
 def banner():
     console.print(Panel.fit(Text(BANNER, style="bold cyan"), border_style="blue", title="dhruv13x"))
 
+# Custom Command Class to override help behavior
+class DuplifinderHelpCommand(click.Command):
+    def get_help(self, ctx: click.Context) -> str:
+        try:
+            result = subprocess.run(
+                ["duplifinder", "--help"],
+                text=True,
+                capture_output=True,
+                check=False
+            )
+            return result.stdout
+        except FileNotFoundError:
+            return "Error: duplifinder CLI not found in PATH."
+        except Exception as e:
+            return f"Error getting duplifinder help: {e}"
 
 @app.callback(invoke_without_command=True)
 def main_callback(ctx: typer.Context):
@@ -113,8 +128,31 @@ def clone():
 # === FUTURE COMMANDS (add 1 per release) ===
 # @app.command()
 # def restore(): from projectrestore import cli; cli.main()
-# @app.command()
-# def dedupe(): from duplifinder import main; main()
+@app.command(
+    cls=DuplifinderHelpCommand, # Use custom command class for help
+    context_settings={
+        "allow_extra_args": True, 
+        "ignore_unknown_options": True,
+    }
+)
+def dedupe(ctx: typer.Context):
+    """Run duplifinder tool."""
+    console.print("[yellow]Launching duplifinder...[/yellow]")
+    
+    command = ["duplifinder"] + ctx.args
+    try:
+        result = subprocess.run(command, text=True, capture_output=True, check=False)
+        console.print(result.stdout)
+        if result.stderr:
+            console.print(f"[red]Duplifinder stderr:[/red]\n{result.stderr}")
+        console.print("[green]✅ Duplication check complete.[/green]")
+        sys.exit(result.returncode)
+    except FileNotFoundError:
+        console.print("[red]❌ duplifinder CLI not found in PATH. Please ensure 'duplifinder' is installed and accessible.[/red]")
+        sys.exit(1)
+    except Exception as e:
+        console.print(f"[red]❌ An unexpected error occurred: {e}[/red]")
+        sys.exit(1)
 # @app.command()
 # def import_fix(): from import_surgeon import cli; cli.main()
 # @app.command()
