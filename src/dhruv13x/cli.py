@@ -1,4 +1,6 @@
 # src/dhruv13x/cli.py
+import sys
+import subprocess
 import click
 import typer
 from rich.console import Console
