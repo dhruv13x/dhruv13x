@@ -9,6 +9,8 @@ from typer.testing import CliRunner
 # Mock the problematic dependency before it's imported by the app
 sys.modules["projectclone"] = MagicMock()
 sys.modules["projectclone.cli"] = MagicMock()
+sys.modules["projectrestore"] = MagicMock()
+sys.modules["projectrestore.cli"] = MagicMock()
 
 from dhruv13x.cli import app, main_callback, tools, version, purge, clone, dedupe, DuplifinderHelpCommand, run
 

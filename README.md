@@ -76,6 +76,7 @@ dhruv13x version
 - **Tool Agnostic:** Access a suite of standalone tools through a single, consistent interface.
 - **God Level: One-Command Cleanup:** Run `dhruv13x purge` to intelligently remove clutter like `.pyc` files, `__pycache__` directories, and other temporary files from your project.
 - **Atomic Project Snapshots:** Use `dhruv13x clone` to create a complete, timestamped snapshot of your project, perfect for backups or testing.
+- **Project Restoration:** Use `dhruv13x restore` to restore your project from a snapshot created by `dhruv13x clone`.
 - **Duplicate Code Detection:** The `dhruv13x dedupe` command runs `duplifinder` to identify and report duplicate code blocks.
 - **Transparent Subprocess Execution:** `dhruv13x` acts as a wrapper, calling the underlying tools in a subprocess to ensure clean and isolated execution.
 
@@ -91,6 +92,7 @@ dhruv13x version
 | `version`  | Show the unified version info.                    |
 | `purge`    | Run the `pypurge` cleanup tool.                   |
 | `clone`    | Run the `projectclone` CLI to snapshot a project. |
+| `restore`  | Run the `projectrestore` CLI to restore from snapshot. |
 | `dedupe`   | Run the `duplifinder` tool to find duplicate code.|
 
 > **Note:** For commands that act as wrappers (like `dedupe`), you can pass additional arguments directly to the underlying tool. For example, `dhruv13x dedupe --arg1 value` is equivalent to `duplifinder --arg1 value`.
@@ -119,7 +121,7 @@ The application is built using [Typer](https://typer.tiangolo.com/), which provi
 ## 🗺️ Roadmap
 
 - [x] Initial release with core functionality
-- [ ] Add `restore` command
+- [x] Add `restore` command
 - [ ] Add `import_fix` command
 - [ ] Add `init` command
 - [ ] Add `routine` command
