@@ -6,7 +6,7 @@
 
 <!-- Package Info -->
 [![PyPI version](https://img.shields.io/pypi/v/dhruv13x.svg)](https://pypi.org/project/dhruv13x/)
-[![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/)
 ![Wheel](https://img.shields.io/pypi/wheel/dhruv13x.svg)
 [![Release](https://img.shields.io/badge/release-PyPI-blue)](https://pypi.org/project/dhruv13x/)
 
@@ -27,58 +27,55 @@
 <!-- License -->
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-<!-- Docs -->
-[![Docs](https://img.shields.io/badge/docs-latest-brightgreen.svg)](https://your-docs-link)
-
 </div>
-
 
 # ✨ dhruv13x: The Unified Developer Toolchain
 
-**Elevator Pitch:** A meta-package that installs and manages a suite of essential Python developer utilities, providing a single, unified command-line interface.
+**Elevator Pitch:** The "Swiss Army Knife" for modern Python engineering—a meta-package that installs and unifies a suite of essential developer utilities under a single, consistent CLI.
 
 ## 📖 About
 
-Why install and manage a dozen different developer tools when you can have one? `dhruv13x` is a "batteries-included" toolkit that bundles a curated set of high-quality utilities into a single, easy-to-use CLI. It's designed to streamline your workflow, enforce best practices, and automate common development tasks.
+Why juggle a dozen different tools when you can have a unified workflow? `dhruv13x` is a **"batteries-included"** toolkit that bundles high-quality utilities for code hygiene, backups, documentation, and automation. It streamlines your development process by providing a central interface to manage these tasks, while still allowing access to each underlying tool independently.
 
 ---
 
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Python 3.11 or higher
+- Python **3.11** or higher
 
 ### Installation
+Install the meta-suite with a single command:
 ```bash
 pip install dhruv13x
 ```
 
 ### Usage Example
-Get a list of all available commands:
-```bash
-dhruv13x --help
-```
+Verify the installation and see the suite of installed tools:
 
-See the suite of installed tools:
 ```bash
+# Check version
+dhruv13x version
+
+# List all installed meta tools
 dhruv13x tools
 ```
 
-Check the version of the meta-package:
+Run a cleanup of your project:
 ```bash
-dhruv13x version
+dhruv13x purge
 ```
 
 ---
 
 ## ✨ Key Features
 
-- **Tool Agnostic:** Access a suite of standalone tools through a single, consistent interface.
-- **God Level: One-Command Cleanup:** Run `dhruv13x purge` to intelligently remove clutter like `.pyc` files, `__pycache__` directories, and other temporary files from your project.
-- **Atomic Project Snapshots:** Use `dhruv13x clone` to create a complete, timestamped snapshot of your project, perfect for backups or testing.
-- **Project Restoration:** Use `dhruv13x restore` to restore your project from a snapshot created by `dhruv13x clone`.
-- **Duplicate Code Detection:** The `dhruv13x dedupe` command runs `duplifinder` to identify and report duplicate code blocks.
-- **Transparent Subprocess Execution:** `dhruv13x` acts as a wrapper, calling the underlying tools in a subprocess to ensure clean and isolated execution.
+- **Unified Ecosystem:** Installs 10+ developer utilities (like `duplifinder`, `pypurge`, `projectclone`) in one go.
+- **God Level: Smart Cleanup:** The `purge` command intelligently removes clutter (`__pycache__`, `.pyc`, build artifacts) to keep your workspace pristine.
+- **Atomic Snapshots:** Use `clone` to create instant, timestamped backups of your entire project state.
+- **Disaster Recovery:** Mistake made? Use `restore` to revert your project to a previous snapshot immediately.
+- **Duplicate Detection:** Identify copy-pasted code blocks using `dedupe` (powered by `duplifinder`).
+- **Flexible Execution:** Acts as a smart wrapper—isolating tool execution in subprocesses for stability while allowing direct argument pass-through.
 
 ---
 
@@ -86,56 +83,72 @@ dhruv13x version
 
 ### CLI Commands
 
-| Command    | Description                                       |
-|------------|---------------------------------------------------|
-| `tools`    | List all installed meta tools.                    |
-| `version`  | Show the unified version info.                    |
-| `purge`    | Run the `pypurge` cleanup tool.                   |
-| `clone`    | Run the `projectclone` CLI to snapshot a project. |
-| `restore`  | Run the `projectrestore` CLI to restore from snapshot. |
-| `dedupe`   | Run the `duplifinder` tool to find duplicate code.|
+The `dhruv13x` CLI maps common tasks to specific underlying tools.
 
-> **Note:** For commands that act as wrappers (like `dedupe`), you can pass additional arguments directly to the underlying tool. For example, `dhruv13x dedupe --arg1 value` is equivalent to `duplifinder --arg1 value`.
+| Command | Description | underlying Tool |
+| :--- | :--- | :--- |
+| `tools` | List all installed meta tools in the suite. | *Internal* |
+| `version` | Show the unified suite version. | *Internal* |
+| `purge` | Clean project clutter (aggressive mode). | `pypurge` |
+| `clone` | Create a timestamped project snapshot. | `projectclone` |
+| `restore` | Restore project from a snapshot. | `projectrestore` |
+| `dedupe` | Find duplicate code blocks. | `duplifinder` |
+
+> **Note:** The `dedupe` command supports argument pass-through.
+> ```bash
+> # Pass arguments directly to duplifinder
+> dhruv13x dedupe --min-lines 5 --exclude tests/
+> ```
 
 ### Environment Variables
-This tool does not require any specific environment variables for its operation.
+`dhruv13x` does not require specific environment variables. However, individual tools (like `enterprise-docs` or `create-dump`) may respect their own configuration files or env vars.
 
 ---
 
 ## 🏗️ Architecture
 
 ### Directory Structure
-```
+```text
 src/
 └── dhruv13x/
     ├── __init__.py
-    ├── banner.py   # ASCII art for the CLI
-    └── cli.py      # Main Typer application and command definitions
+    ├── banner.py   # ASCII art and branding
+    └── cli.py      # Main Typer application & command routing
 ```
 
 ### Core Logic
-The application is built using [Typer](https://typer.tiangolo.com/), which provides a simple and intuitive way to create a command-line interface. The main entry point is the `app` object in `cli.py`. Each command is a separate function decorated with `@app.command()`. These functions then use the `subprocess` module to call the underlying tools, passing any additional arguments directly to them.
+The application is built on [Typer](https://typer.tiangolo.com/).
+1.  **Entry Point**: `cli.py` defines the main application and commands.
+2.  **Command Routing**: Each `dhruv13x` command acts as a proxy.
+    *   **Direct Import**: Some tools (like `projectclone`) are imported and run directly.
+    *   **Subprocess**: Others (like `pypurge`, `duplifinder`) are executed in a shell subprocess to ensure environment isolation and capture output streams.
 
 ---
 
 ## 🗺️ Roadmap
 
-- [x] Initial release with core functionality
-- [x] Add `restore` command
-- [ ] Add `import_fix` command
-- [ ] Add `init` command
-- [ ] Add `routine` command
-- [ ] Add `docs` command
+- [x] **Core**: Unified CLI structure & tool installation.
+- [x] **Maintenance**: `purge` (cleanup) and `dedupe` (code quality).
+- [x] **Backup**: `clone` (snapshot) and `restore` (recovery).
+- [ ] **Refactoring**: `import_fix` wrapper for `import-surgeon`.
+- [ ] **Scaffolding**: `init` wrapper for `pyinitgen`.
+- [ ] **Workflow**: `routine` wrapper for `routine-workflow`.
+- [ ] **Docs**: `docs` wrapper for `enterprise-docs`.
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a pull request or open an issue.
+We welcome contributions! Whether it's adding a wrapper for a new tool or improving the existing CLI.
+
+1.  Fork the repository.
+2.  Create your feature branch (`git checkout -b feature/amazing-feature`).
+3.  Commit your changes.
+4.  Push to the branch.
+5.  Open a Pull Request.
 
 ---
 
 ## 📜 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
+This project is licensed under the **MIT License**.
