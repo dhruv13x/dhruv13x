@@ -29,7 +29,7 @@ def test_tools():
         assert mock_print.call_count == 1
 
 def test_version():
-    with patch('dhruv13x.cli.metadata.version', return_value="1.0.1"), \
+    with patch('dhruv13x.cli.metadata.version', return_value="2.0.0"), \
          patch('dhruv13x.cli.console.print') as mock_print:
         version()
         mock_print.assert_called_once()

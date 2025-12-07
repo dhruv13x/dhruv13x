@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "dhruv13x"
-version = "1.0.1"
+version = "2.0.0"
 
 description = "Dhruv's complete meta tooling suite — installs all utilities in one package."
 readme = "README.md"
