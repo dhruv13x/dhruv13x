@@ -29,7 +29,7 @@ def test_tools():
         assert mock_print.call_count == 1
 
 def test_version():
-    with patch('dhruv13x.cli.metadata.version', return_value="1.0.1"), \
+    with patch('dhruv13x.cli.metadata.version', return_value="3.0.0"), \
          patch('dhruv13x.cli.console.print') as mock_print:
         version()
         mock_print.assert_called_once()
@@ -103,6 +103,21 @@ def test_dedupe_exception():
         dedupe(ctx)
         mock_print.assert_any_call("[red]❌ An unexpected error occurred: [/red]")
         mock_exit.assert_called_once_with(1)
+
+def test_dedupe_nonzero_returncode():
+    ctx = MagicMock()
+    ctx.args = ["--path", "."]
+    with patch('dhruv13x.cli.subprocess.run') as mock_run, \
+         patch('dhruv13x.cli.sys.exit') as mock_exit:
+        # Mock subprocess.run to return a CompletedProcess with a non-zero returncode
+        mock_run.return_value = MagicMock(
+            stdout="Some output",
+            stderr="Some error",
+            returncode=2
+        )
+        dedupe(ctx)
+        mock_run.assert_called_once()
+        mock_exit.assert_called_once_with(2)
 
 def test_duplifinder_help_command():
     cmd = DuplifinderHelpCommand("dedupe")
