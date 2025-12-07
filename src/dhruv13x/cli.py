@@ -8,6 +8,7 @@ from rich.panel import Panel
 from rich.text import Text
 from rich import print
 from projectclone import cli as clone_cli
+from projectrestore import cli as projectrestore_cli
 from importlib import metadata
 
 console = Console()
@@ -106,8 +107,14 @@ def clone():
 
 
 # === FUTURE COMMANDS (add 1 per release) ===
-# @app.command()
-# def restore(): from projectrestore import cli; cli.main()
+@app.command()
+def restore():
+    """Run projectrestore CLI."""
+    console.print("[yellow]Launching projectrestore...[/yellow]")
+    projectrestore_cli.main()
+    console.print("[green]✅ Restore operation complete.[/green]")
+
+
 @app.command(
     cls=DuplifinderHelpCommand, # Use custom command class for help
     context_settings={
