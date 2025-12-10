@@ -27,17 +27,27 @@ classifiers = [
 
 # ✅ All your published packages — direct dependencies
 dependencies = [
-  "duplifinder",
-  "create-dump",
   "autoheader",
+  "create-dump",
+  "dhruv",
+  "dhruv13x",
+  "duplifinder",
   "enterprise-docs",
+  "geminiai-cli",
+  "import-surgeon",
+  "importdoc",
+  "jules-cli",
+  "project-vault",
   "pyinitgen",
   "pypurge",
-  "import-surgeon",
+  "relm",
+  "routine-workflow",
+  "termux-dev-setup",
+  "vault-check",
+  
+  # Your local extras you listed earlier:
   "projectrestore",
-  "projectclone",
-  "importdoc",
-  "routine-workflow"
+  "projectclone"
 ]
 
 [project.urls]
