@@ -30,7 +30,6 @@ dependencies = [
   "autoheader",
   "create-dump",
   "dhruv",
-  "dhruv13x",
   "duplifinder",
   "enterprise-docs",
   "geminiai-cli",
