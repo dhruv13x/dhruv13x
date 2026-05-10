@@ -40,7 +40,6 @@ dependencies = [
   "pyinitgen",
   "pypurge",
   "relm",
-  "routine-workflow",
   "termux-dev-setup",
   "vault-check",
   

@@ -132,7 +132,6 @@ The application is built on [Typer](https://typer.tiangolo.com/).
 - [x] **Backup**: `clone` (snapshot) and `restore` (recovery).
 - [ ] **Refactoring**: `import_fix` wrapper for `import-surgeon`.
 - [ ] **Scaffolding**: `init` wrapper for `pyinitgen`.
-- [ ] **Workflow**: `routine` wrapper for `routine-workflow`.
 - [ ] **Docs**: `docs` wrapper for `enterprise-docs`.
 
 ---

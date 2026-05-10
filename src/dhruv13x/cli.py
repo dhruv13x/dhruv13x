@@ -61,7 +61,6 @@ def tools():
 • projectclone        → atomic project snapshot
 • projectrestore      → restore from snapshot
 • importdoc           → import documentation scaffolder
-• routine-workflow    → daily developer automation
 """, border_style="green", title="Installed Tools"))
 
 
@@ -144,8 +143,6 @@ def dedupe(ctx: typer.Context):
 # def import_fix(): from import_surgeon import cli; cli.main()
 # @app.command()
 # def init(): from pyinitgen import cli; cli.main()
-# @app.command()
-# def routine(): from routine_workflow import full_routine_workflow; full_routine_workflow.run()
 # @app.command()
 # def docs(): from enterprise_docs import cli; cli.main()
 
